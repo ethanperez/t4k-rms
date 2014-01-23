@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'south',
     'durationfield',
     'riders',
+    'fitness',
 )
 
 MIDDLEWARE_CLASSES = (
