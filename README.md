@@ -17,10 +17,10 @@ The purpose of this piece of software is to allow the Texas 4000 team to better 
 
 Here is a list of features that are currently being worked on, based off of what I've seen and what has been requested. You can email me at [ethan@ethanperez.com](mailto:ethan@ethanperez.com).
 
-- [x] basic rider login/logout ability
-- [ ] create a basic rider dashboard w/ Bootstrap 3
-- [ ] ability to track miles biked
-- [ ] ability to sign-in at meetings by logging into the T4K RMS
-- [ ] ability to track fundraising data, and take snapshots
-- [ ] ability to track community service hours
-- [ ] ability to track attendence at all events
+- basic rider login/logout ability
+- create a basic rider dashboard w/ Bootstrap 3
+- ability to track miles biked
+- ability to sign-in at meetings by logging into the T4K RMS
+- ability to track fundraising data, and take snapshots
+- ability to track community service hours
+- ability to track attendence at all events
