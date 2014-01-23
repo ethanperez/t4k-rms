@@ -26,6 +26,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Auth model changed to custom 'riders'
+AUTH_USER_MODEL = 'riders.Teammate'
 
 # Application definition
 
@@ -38,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'durationfield',
+    'riders',
 )
 
 MIDDLEWARE_CLASSES = (
