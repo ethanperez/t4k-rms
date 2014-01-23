@@ -3,3 +3,6 @@
 
 # Python base files
 *.pyc
+
+# South migrations
+/riders/migrations/
