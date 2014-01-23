@@ -1,3 +1,5 @@
 from django.contrib import admin
+from fitness.models import Ride
 
-# Register your models here.
+# Add rides to admin panel
+admin.site.register(Ride)

@@ -21,7 +21,7 @@ class Ride(models.Model):
     # Base method returns the teammate's name
     def __unicode__(self):
         # Returns the user foreign key, which calls __unicide__ in auth
-        return self.user
+        return '%s, %d miles' % (self.user, self.miles)
     
     # Methods to return model values
     def get_miles(self):
@@ -39,9 +39,3 @@ class Ride(models.Model):
     def get_duration(self):
         # Returns the time it took to ride
         return self.duration
-    
-    # Descriptors for the called methods
-    get_miles.short_description = "Miles ridden"
-    get_date.short_description = "Date of ride"
-    get_pace.short_description = "Pace of ride"
-    get_duration.short_description = "Time on bike"
