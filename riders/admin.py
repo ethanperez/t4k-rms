@@ -11,7 +11,7 @@ class TeammateAdmin(UserAdmin):
     add_form = TeammateCreationForm
     
     # The attributes of each teammate that are displayed
-    list_display = ('email', 'first_name', 'last_name', 'title', 'route', 'is_staff')
+    list_display = ('get_full_name', 'email', 'title', 'route', 'is_staff')
     list_filter = ('is_staff', 'route')
     
     # Fields that are shown in edit user pane

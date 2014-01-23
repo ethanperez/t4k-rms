@@ -87,6 +87,7 @@ class Teammate(AbstractBaseUser, PermissionsMixin):
         full_name = '%s %s' % (self.first_name, self.last_name)
         # Returns the full name
         return full_name.strip()
+    get_full_name.short_description = 'Teammate'
         
     def get_short_name(self):
         # Returns the first name
