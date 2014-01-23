@@ -60,8 +60,8 @@ class Teammate(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('email address', max_length = 100, unique = True, db_index = True)
     first_name = models.CharField('first name', max_length = 35)
     last_name = models.CharField('last name', max_length = 35)
-    title = models.ForeignKey(Title, blank = True)
-    route = models.ForeignKey(Route, blank = True)
+    title = models.ForeignKey(Title, null = True)
+    route = models.ForeignKey(Route, null = True)
     date_of_birth = models.DateField('date of birth', help_text = 'YYYY-MM-DD format')
     is_staff = models.BooleanField('leadership status', default = False,
                                    help_text = 'Designates who may login to the admin area')
