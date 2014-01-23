@@ -6,3 +6,4 @@
 
 # South migrations
 /riders/migrations/
+/fitness/migrations/
