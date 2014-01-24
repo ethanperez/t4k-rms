@@ -13,6 +13,12 @@ class Ride(models.Model):
     duration = DurationField('time to complete ride', help_text = 'HH:MM:SS format')
     comments = models.TextField('comments')
     
+    # Method to create a new ride
+    def log(cls, user, date, buddies, miles, pace, duration, comments):
+        user_data = cls(user = user, date = date, buddies = buddies, miles = miles,
+                   pace = pace, duration = duration, comments = comments)
+        return user_data
+    
     # Metadata for the visual names
     class Meta:
         verbose_name = 'ride'
