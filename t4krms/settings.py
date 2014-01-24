@@ -29,6 +29,8 @@ ALLOWED_HOSTS = []
 # Auth model changed to custom 'riders'
 AUTH_USER_MODEL = 'riders.Teammate'
 
+LOGIN_URL = 'login/'
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -87,3 +89,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Where to look for templates
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
