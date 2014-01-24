@@ -109,3 +109,30 @@ def log_ride(request):
             'navbar_title': 'Texas 4000 RMS',
         }
         return render(request, 'dashboard/add_ride.html', context)
+
+# Change user's password
+def change_password(request):
+    # If the form has been submitted
+    if request.method == 'POST':
+        # Check if the passwords match
+        if request.POST['password1'] == request.POST['password2'] and request.POST['password2'] is not None:
+            # Change the password
+            u = Teammate.objects.get(id__exact = request.user.id)
+            u.set_password(escape(request.POST['password2']))
+            u.save()
+            return HttpResponseRedirect(reverse('dashboard:dashboard'))
+        else:
+           context = {
+               'site_title': 'Texas 4000 Rider Management System',
+               'page_title': 'Change Password',
+               'navbar_title': 'Texas 4000 RMS',
+               'error_message': "You're passwords don't match!"
+           }
+           return render(request, 'dashboard/change_password.html', context)
+    else: # First time visitng page
+        context = {
+            'site_title': 'Texas 4000 Rider Management System',
+            'page_title': 'Change Password',
+            'navbar_title': 'Texas 4000 RMS',
+        }
+        return render(request, 'dashboard/change_password.html', context)
