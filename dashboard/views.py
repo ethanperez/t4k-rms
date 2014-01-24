@@ -13,11 +13,15 @@ from fitness.models import Ride
 # Base dashboard view
 @login_required
 def dashboard(request):
+    # Retreive total miles
+    rides = Ride.objects.filter(user_id__exact = request.user)
+    miles = rides.aggregate(Sum('miles'))
     # Return context
     context = {
         'site_title': 'Texas 4000 Rider Management System',
         'page_title': 'Dashboard',
-        'navbar_title': 'Texas 4000 RMS'
+        'navbar_title': 'Texas 4000 RMS',
+        'miles': miles,
     }
     return render(request, 'dashboard/index.html', context)
 
