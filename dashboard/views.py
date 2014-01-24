@@ -15,9 +15,11 @@ from fitness.models import Ride
 def dashboard(request):
     # Return context
     context = {
-        'title': request.user
+        'site_title': 'Texas 4000 Rider Management System',
+        'page_title': 'Dashboard',
+        'navbar_title': 'Texas 4000 RMS'
     }
-    return render(request, 'dashboard/index.html')
+    return render(request, 'dashboard/index.html', context)
 
 def enter_gate(request):
     # Only execute login logic if data is posted

@@ -27,14 +27,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand">{{ site_title }}</a>
+          <a class="navbar-brand">{{ navbar_title }}</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="{% url 'dashboard:dashboard' %}">Home</a></li>
        		<li><a href=#>Log ride</a></li>
           </ul>
-          <p class="navbar-text navbar-right">I'm {{ user.get_full_name }}?</p>
+          <ul class="nav navbar-nav navbar-right">
+             <li><a href="#">Change Password</a></li>
+             <li class="navbar-text">I'm {{ user.get_full_name }}?</li>
+          </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
