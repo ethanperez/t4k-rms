@@ -9,6 +9,7 @@ import time
 from decimal import Decimal
 from riders.models import Teammate
 from fitness.models import Ride
+from django.utils.html import escape
 
 # Base dashboard view
 @login_required
@@ -79,12 +80,32 @@ def exit_gate(request):
     
 # Log a ride
 def log_ride(request):
-    # Pass contect to render
-    context = {
-        'site_title': 'Texas 4000 Rider Management System',
-        'page_title': 'Log a Ride',
-        'navbar_title': 'Texas 4000 RMS',
-    }
-    return render(request, 'dashboard/add_ride.html', context)
-
-
+    # If the form has been submitted
+    if request.method == 'POST':
+        # Give the post variables a variable
+        buddies = escape(request.POST['partners'])
+        miles = request.POST['miles']
+        pace = request.POST['pace']
+        time_logged = request.POST['time']
+        comments = escape(request.POST['comments'])
+        date = request.POST['date']
+        # Set the time to the right format
+        h = int(time.strftime("%I", time.strptime(time_logged, "%I:%M:%S")))
+        m = int(time.strftime("%M", time.strptime(time_logged, "%I:%M:%S")))
+        s = int(time.strftime("%S", time.strptime(time_logged, "%I:%M:%S")))
+        final_time = (((h*3600)+(m*60)+(s))*1000000)
+        
+        # Save into the database
+        object = Ride.objects.create(user_id = request.user.id, buddies = buddies,
+                date = date, miles = Decimal(miles), pace = Decimal(pace),
+                duration = final_time, comments = comments)
+        object.save()
+        # Return to homepage
+        return HttpResponseRedirect(reverse('dashboard:dashboard'))
+    else: # Return an normal page
+        context = {
+            'site_title': 'Texas 4000 Rider Management System',
+            'page_title': 'Log a Ride',
+            'navbar_title': 'Texas 4000 RMS',
+        }
+        return render(request, 'dashboard/add_ride.html', context)
