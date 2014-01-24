@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'durationfield',
     'riders',
     'fitness',
-    'bootstrap3',
+    'dashboard',
 )
 
 MIDDLEWARE_CLASSES = (
