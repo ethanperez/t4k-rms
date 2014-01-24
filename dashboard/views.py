@@ -76,5 +76,15 @@ def enter_gate(request):
 def exit_gate(request):
     logout(request)
     return redirect('dashboard:dashboard')
+    
+# Log a ride
+def log_ride(request):
+    # Pass contect to render
+    context = {
+        'site_title': 'Texas 4000 Rider Management System',
+        'page_title': 'Log a Ride',
+        'navbar_title': 'Texas 4000 RMS',
+    }
+    return render(request, 'dashboard/add_ride.html', context)
 
 
