@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
-from django.db.models import Sum
+from django.db.models import Sum, Avg
 from datetime import datetime
 import time
 from decimal import Decimal
@@ -16,12 +16,16 @@ def dashboard(request):
     # Retreive total miles
     rides = Ride.objects.filter(user_id__exact = request.user)
     miles = rides.aggregate(Sum('miles'))
+    pace = rides.aggregate(Avg('pace'))
+    duration = rides.aggregate(Sum('duration'))
     # Return context
     context = {
         'site_title': 'Texas 4000 Rider Management System',
         'page_title': 'Dashboard',
         'navbar_title': 'Texas 4000 RMS',
         'miles': miles,
+        'pace': pace,
+        'duration': duration,
     }
     return render(request, 'dashboard/index.html', context)
 

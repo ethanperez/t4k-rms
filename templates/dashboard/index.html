@@ -6,7 +6,7 @@
   	<meta name="viewport" content="width=device-with, initial-score=1.0">
 
   	<title>{{ site_title }} | {{ page_title }}</title>
-
+	{% load datetime_duration %}
   	<!-- Stylesheets -->
   	<link rel="stylesheet" type="text/css" href="//static.t4k2014.com/bootstrap.min.css">
   	<link rel="stylesheet" type="text/css" href="//static.t4k2014.com/fixnav.css">
@@ -32,7 +32,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="{% url 'dashboard:dashboard' %}">Home</a></li>
-       		<li><a href=#>Log ride</a></li>
+       		<li><a href=#>Log Ride</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
              <li><a href="#">Change Password</a></li>
@@ -67,6 +67,8 @@
     	  	  </div>
     	  	  <ul class="list-group">
     	  	  	<li class="list-group-item">Total Miles: {{ miles.miles__sum }}</li>
+				<li class="list-group-item">Total Time Ridden: {{ duration.duration__sum|timedelta }}</li>
+				<li class="list-group-item">Average Pace: {{ pace.pace__avg }} mph</li>
     	  	  </ul>
     	  	</div>
     	  </div>
