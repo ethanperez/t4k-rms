@@ -36,7 +36,7 @@
        		<li class="active"><a href="{% url 'dashboard:log_ride' %}">Log Ride</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-             <li><a href="#">Change Password</a></li>
+             <li><a href="{% url 'dashboard:change_password' %}">Change Password</a></li>
 			 <li><a href="{% url 'dashboard:logout' %}">Logout</a></li>
              <li class="navbar-text">I'm {{ user.get_full_name }}?</li>
           </ul>
