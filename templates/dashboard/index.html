@@ -1,85 +1,38 @@
-<!DOCTYPE html>
-<html>
-  <head>
-  	<meta charset="utf-8">
-  	<meta http-equiv="X-UA-Compatible" content="IE-edge">
-  	<meta name="viewport" content="width=device-with, initial-score=1.0">
+{% extends "base.html" %}
 
-  	<title>{{ site_title }} | {{ page_title }}</title>
-	{% load datetime_duration %}
-  	<!-- Stylesheets -->
-  	<link rel="stylesheet" type="text/css" href="//static.t4k2014.com/bootstrap.min.css">
-  	<link rel="stylesheet" type="text/css" href="//static.t4k2014.com/fixnav.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-  	    <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand">{{ navbar_title }}</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'dashboard:dashboard' %}">Home</a></li>
-       		<li><a href="{% url 'dashboard:log_ride' %}">Log Ride</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-             <li><a href="{% url 'dashboard:change_password' %}">Change Password</a></li>
-			 <li><a href="{% url 'dashboard:logout' %}">Logout</a></li>
-             <li class="navbar-text">I'm {{ user.get_full_name }}?</li>
-          </ul>
-        </div><!--/.nav-collapse -->
+{# TODO: I don't understand why I have to load it again =/ #}
+{% load datetime_duration %}
+
+{% block content %}
+<div class="page-header">
+  <h1>{{ user.get_full_name }}'s Dashboard</h1>
+</div>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Basic Information</h3>
       </div>
+      <ul class="list-group">
+        <li class="list-group-item">Name: {{ user.get_full_name }}</li>
+        <li class="list-group-item">Email: {{ user.get_email }}</li>
+        <li class="list-group-item">Title: {{ user.get_title }}</li>
+        <li class="list-group-item">Route: {{ user.route }}</li>
+        <li class="list-group-item">Date of birth: {{ user.get_dob }}</li>
+      </ul>
     </div>
-    <div class="container">
-    	<div class="page-header">
-    		<h1>{{ user.get_full_name }}'s Dashboard</h1>
-    	</div>
-    	<div class="row">
-    	  <div class="col-sm-4">
-    	  	<div class="panel panel-info">
-    	  	  <div class="panel-heading">
-    	  	  	<h3 class="panel-title">Basic Information</h3>
-    	  	  </div>
-    	  	  <ul class="list-group">
-    	  	  	<li class="list-group-item">Name: {{ user.get_full_name }}</li>
-   				<li class="list-group-item">Email: {{ user.get_email }}</li>
-   				<li class="list-group-item">Title: {{ user.get_title }}</li>
-   				<li class="list-group-item">Route: {{ user.route }}</li>
-   				<li class="list-group-item">Date of birth: {{ user.get_dob }}</li>
-    	  	  </ul>
-    	  	</div>
-    	  </div>
-     	  <div class="col-sm-4">
-    	  	<div class="panel panel-success">
-    	  	  <div class="panel-heading">
-    	  	  	<h3 class="panel-title">Fitness Information</h3>
-    	  	  </div>
-    	  	  <ul class="list-group">
-    	  	  	<li class="list-group-item">Total Miles: {{ miles.miles__sum }}</li>
-				<li class="list-group-item">Total Time Ridden: {{ duration.duration__sum|timedelta }}</li>
-				<li class="list-group-item">Average Pace: {{ pace.pace__avg }} mph</li>
-    	  	  </ul>
-    	  	</div>
-    	  </div>
-    	</div>	  
+  </div>
+  <div class="col-sm-4">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">Fitness Information</h3>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">Total Miles: {{ miles.miles__sum }}</li>
+        <li class="list-group-item">Total Time Ridden: {{ duration.duration__sum|timedelta }}</li>
+        <li class="list-group-item">Average Pace: {{ pace.pace__avg }} mph</li>
+      </ul>
     </div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="//static.t4k2014.com/bootstrap.min.js"></script>
-  </body>
-</html>
+  </div>
+</div>
+{% endblock %}

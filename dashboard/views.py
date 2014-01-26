@@ -21,9 +21,6 @@ def dashboard(request):
     duration = rides.aggregate(Sum('duration'))
     # Return context
     context = {
-        'site_title': 'Texas 4000 Rider Management System',
-        'page_title': 'Dashboard',
-        'navbar_title': 'Texas 4000 RMS',
         'miles': miles,
         'pace': pace,
         'duration': duration,
@@ -47,9 +44,6 @@ def enter_gate(request):
             else:
                 # Return context error message
                 context = {
-                    'site_title': 'Texas 4000 Rider Management System',
-                    'page_title': 'Login',
-                    'page_header': 'Texas 4000 RMS',
                     'error_message': "You're not an active rider, man."
                 }
                 return render(request, 'dashboard/login.html', context)
@@ -57,27 +51,19 @@ def enter_gate(request):
         else:
             # Return context error message
             context = {
-                'site_title': 'Texas 4000 Rider Management System',
-                'page_title': 'Login',
-                'page_header': 'Texas 4000 RMS',
                 'error_message': "Your username and password don't match!"
             }
             return render(request, 'dashboard/login.html', context)
     # If there's no POST data; just a normal login page
     else:
         # Return context w/ no error
-        context = {
-            'site_title': 'Texas 4000 Rider Management System',
-            'page_title': 'Login',
-            'page_header': 'Texas 4000 RMS',
-        }
-        return render(request, 'dashboard/login.html', context)
+        return render(request, 'dashboard/login.html', {})
 
 # Logout view
 def exit_gate(request):
     logout(request)
     return redirect('dashboard:dashboard')
-    
+
 # Log a ride
 def log_ride(request):
     # If the form has been submitted
@@ -94,7 +80,7 @@ def log_ride(request):
         m = int(time.strftime("%M", time.strptime(time_logged, "%I:%M:%S")))
         s = int(time.strftime("%S", time.strptime(time_logged, "%I:%M:%S")))
         final_time = (((h*3600)+(m*60)+(s))*1000000)
-        
+
         # Save into the database
         object = Ride.objects.create(user_id = request.user.id, buddies = buddies,
                 date = date, miles = Decimal(miles), pace = Decimal(pace),
@@ -103,12 +89,7 @@ def log_ride(request):
         # Return to homepage
         return HttpResponseRedirect(reverse('dashboard:dashboard'))
     else: # Return an normal page
-        context = {
-            'site_title': 'Texas 4000 Rider Management System',
-            'page_title': 'Log a Ride',
-            'navbar_title': 'Texas 4000 RMS',
-        }
-        return render(request, 'dashboard/add_ride.html', context)
+        return render(request, 'dashboard/add_ride.html', {})
 
 # Change user's password
 def change_password(request):
@@ -123,16 +104,8 @@ def change_password(request):
             return HttpResponseRedirect(reverse('dashboard:dashboard'))
         else:
            context = {
-               'site_title': 'Texas 4000 Rider Management System',
-               'page_title': 'Change Password',
-               'navbar_title': 'Texas 4000 RMS',
-               'error_message': "You're passwords don't match!"
+               'error_message': "Your passwords don't match!"
            }
            return render(request, 'dashboard/change_password.html', context)
-    else: # First time visitng page
-        context = {
-            'site_title': 'Texas 4000 Rider Management System',
-            'page_title': 'Change Password',
-            'navbar_title': 'Texas 4000 RMS',
-        }
-        return render(request, 'dashboard/change_password.html', context)
+    else: # First time visiting page
+        return render(request, 'dashboard/change_password.html', {})

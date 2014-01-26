@@ -4,34 +4,37 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 # Model that holds the team's titles
+# TODO: use a choices field option for routes and titles instead of Models
+# https://docs.djangoproject.com/en/dev/topics/db/models/#field-options
 class Title(models.Model):
     title = models.CharField('title', max_length = 100)
-    
+
     # Base called method returns the title
     def __unicode__(self):
         return self.title
-        
+
 # Model that holds the team's routes
 class Route(models.Model):
     route = models.CharField('route', max_length = 10)
-    
+
     # Base called method returns the route
     def __unicode__(self):
         return self.route
-        
+
 # Manager class that instantiates the creation of a new teammate
 class TeammateManager(BaseUserManager):
-    
+
     # Base create teammate method
     def _create_user(self, email, first_name, last_name, password,
                      is_staff, is_superuser, **extra_fields):
-                    
+
         # Define the time
         now = timezone.now()
         # Check for an email
         if not email:
             # If none, tell the user
             raise ValueError('The teammate must set an email!')
+
         # Clean and assign data
         email = self.normalize_email(email)
         user = self.model(email = email, is_staff = is_staff,
@@ -42,14 +45,14 @@ class TeammateManager(BaseUserManager):
         # Ready to insert into database
         user.set_password(password)
         user.save(using = self._db)
-        
+
         return user
-    
+
     # Method to create a normal teammate; has not access to admin panel
     def create_user(self, email, first_name, last_name, password = None, **extra_fields):
         # Utilizes the base creation method
         return self._create_user(email, first_name, last_name, password, False, False, **extra_fields)
-        
+
     # Method to create a 'superuser'; has access to EVERYTHING
     def create_superuser(self, email, first_name, last_name, password, **extra_fields):
         # Utilize the base creation method
@@ -68,47 +71,47 @@ class Teammate(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField('active status', default = True,
                                     help_text = 'Designates whether or not the teammate can login')
     date_joined = models.DateTimeField('date added', default = timezone.now)
-    
+
     # Defines the class that manages the teammate
     objects = TeammateManager()
-    
+
     # Defines what field will be used as the username
     USERNAME_FIELD = 'email'
     # Defines what field(s) will be required
     REQUIRED_FIELDS = ['first_name', 'last_name', 'date_of_birth']
-    
+
     # Metadata about the model
     class Meta:
         verbose_name = 'teammate'
         verbose_name_plural = 'teammates'
-        
+
     # Methods to return values about the teammate
     def get_full_name(self):
         full_name = '%s %s' % (self.first_name, self.last_name)
         # Returns the full name
         return full_name.strip()
     get_full_name.short_description = 'Teammate'
-        
+
     def get_short_name(self):
         # Returns the first name
         return self.first_name
-    
+
     def get_email(self):
         # Returns the email address
         return self.email
-        
+
     def get_title(self):
         # Returns the title
         return self.title
-        
+
     def get_route(self):
         # Returns the route
         return self.route
-        
+
     def get_dob(self):
         # Returns the DOB
         return self.date_of_birth
-        
+
     # Base called function
     def __unicode__(self):
         return self.get_full_name()

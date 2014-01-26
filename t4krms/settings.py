@@ -93,4 +93,5 @@ STATIC_URL = '/static/'
 # Where to look for templates
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
+    os.path.join(BASE_DIR, 'templates/dashboard'),
 )
