@@ -22,12 +22,12 @@ class Route(models.Model):
         return self.route
 
 # Manager class that instantiates the creation of a new teammate
+# source (i think): http://procrastinatingdev.com/django/using-configurable-user-models-in-django-1-5/
 class TeammateManager(BaseUserManager):
 
     # Base create teammate method
-    def _create_user(self, email, first_name, last_name, password,
+    def _create_user(self, email, first_name, last_name, date_of_birth, password,
                      is_staff, is_superuser, **extra_fields):
-
         # Define the time
         now = timezone.now()
         # Check for an email
@@ -40,8 +40,8 @@ class TeammateManager(BaseUserManager):
         user = self.model(email = email, is_staff = is_staff,
                           is_active = True, is_superuser = is_superuser,
                           last_login = now, first_name = first_name,
-                          last_name = last_name, date_joined = now,
-                          **extra_fields)
+                          last_name = last_name, date_of_birth = date_of_birth,
+                          date_joined = now, **extra_fields)
         # Ready to insert into database
         user.set_password(password)
         user.save(using = self._db)
@@ -49,14 +49,14 @@ class TeammateManager(BaseUserManager):
         return user
 
     # Method to create a normal teammate; has not access to admin panel
-    def create_user(self, email, first_name, last_name, password = None, **extra_fields):
+    def create_user(self, email, first_name, last_name, date_of_birth, password, **extra_fields):
         # Utilizes the base creation method
-        return self._create_user(email, first_name, last_name, password, False, False, **extra_fields)
+        return self._create_user(email, first_name, last_name, date_of_birth, password, False, False, **extra_fields)
 
     # Method to create a 'superuser'; has access to EVERYTHING
-    def create_superuser(self, email, first_name, last_name, password, **extra_fields):
+    def create_superuser(self, email, first_name, last_name, date_of_birth, password, **extra_fields):
         # Utilize the base creation method
-        return self._create_user(email, first_name, last_name, password, True, True, **extra_fields)
+        return self._create_user(email, first_name, last_name, date_of_birth, password, True, True, **extra_fields)
 
 # Model that holds the teammates' data
 class Teammate(AbstractBaseUser, PermissionsMixin):
