@@ -30,7 +30,7 @@
       <ul class="list-group">
         <li class="list-group-item">Total Miles: {{ miles.miles__sum }}</li>
         <li class="list-group-item">Total Time Ridden: {{ duration.duration__sum|timedelta }}</li>
-        <li class="list-group-item">Average Pace: {{ pace.pace__avg }} mph</li>
+        <li class="list-group-item">Average Pace: {{ pace.pace__avg }} {% if pace.pace__avg%}mph{% endif %}</li>
       </ul>
     </div>
   </div>
