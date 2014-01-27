@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="page-header">
-  <h1>{{ user.get_full_name }}'s Dashboard</h1>
+  <h1>{{ rider.get_full_name }}'s Dashboard</h1>
 </div>
 <div class="row">
   <div class="col-sm-4">
@@ -14,11 +14,11 @@
         <h3 class="panel-title">Basic Information</h3>
       </div>
       <ul class="list-group">
-        <li class="list-group-item">Name: {{ user.get_full_name }}</li>
-        <li class="list-group-item">Email: {{ user.get_email }}</li>
-        <li class="list-group-item">Title: {{ user.get_title }}</li>
-        <li class="list-group-item">Route: {{ user.route }}</li>
-        <li class="list-group-item">Date of birth: {{ user.get_dob }}</li>
+        <li class="list-group-item">Name: {{ rider.get_full_name }}</li>
+        <li class="list-group-item">Email: {{ rider.get_email }}</li>
+        <li class="list-group-item">Title: {{ rider.get_title }}</li>
+        <li class="list-group-item">Route: {{ rider.route }}</li>
+        <li class="list-group-item">Date of birth: {{ rider.get_dob }}</li>
       </ul>
     </div>
   </div>
