@@ -48,12 +48,12 @@ class Teammate(AbstractBaseUser, PermissionsMixin):
     title = models.CharField('title', max_length = 100, default = 'Rider')
 
     ROUTE_CHOICES = (
-      ( 'S', 'Sierra' ),
-      ( 'R', 'Rockies' ),
-      ( 'O', 'Ozarks' )
+      ( 'sierra', 'Sierra' ),
+      ( 'rockies', 'Rockies' ),
+      ( 'ozarks', 'Ozarks' )
     )
 
-    route = models.CharField(max_length=1, choices=ROUTE_CHOICES)
+    route = models.CharField(max_length=20, choices=ROUTE_CHOICES)
     date_of_birth = models.DateField('date of birth', help_text = 'YYYY-MM-DD format')
     is_staff = models.BooleanField('leadership status', default = False,
                                    help_text = 'Designates who may login to the admin area')
