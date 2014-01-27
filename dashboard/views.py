@@ -12,19 +12,31 @@ from fitness.models import Ride
 from django.utils.html import escape
 
 # Base dashboard view
-@login_required
-def dashboard(request):
+# @login_required
+def dashboard(request, rider=None):
+
+    if rider:
+        tm = Teammate.objects.get(pk=rider)
+    elif not request.user.is_anonymous():
+        tm = request.user
+    else:
+        return HttpResponseRedirect(reverse('dashboard:login'))
+
     # Retreive total miles
-    rides = Ride.objects.filter(user_id__exact = request.user)
+    rides = Ride.objects.filter(user_id__exact = tm)
     miles = rides.aggregate(Sum('miles'))
     pace = rides.aggregate(Avg('pace'))
     duration = rides.aggregate(Sum('duration'))
+
     # Return context
     context = {
         'miles': miles,
         'pace': pace,
         'duration': duration,
+        'rides' : rides,
+        'rider' : tm
     }
+
     return render(request, 'dashboard/index.html', context)
 
 def enter_gate(request):
