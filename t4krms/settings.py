@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 # Auth model changed to custom 'riders'
 AUTH_USER_MODEL = 'riders.Teammate'
 
-LOGIN_URL = 'login/'
+LOGIN_URL = '/login'
 
 # Application definition
 

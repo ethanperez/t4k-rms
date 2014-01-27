@@ -94,6 +94,7 @@ def exit_gate(request):
     return redirect('dashboard:dashboard')
 
 # Log a ride
+@login_required
 def log_ride(request):
     # If the form has been submitted
     if request.method == 'POST':
