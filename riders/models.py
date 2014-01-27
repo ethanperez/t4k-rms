@@ -3,24 +3,6 @@ from django.utils import timezone
 # For teammate manager and modification of Django's base user auth system
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-# Model that holds the team's titles
-# TODO: use a choices field option for routes and titles instead of Models
-# https://docs.djangoproject.com/en/dev/topics/db/models/#field-options
-class Title(models.Model):
-    title = models.CharField('title', max_length = 100)
-
-    # Base called method returns the title
-    def __unicode__(self):
-        return self.title
-
-# Model that holds the team's routes
-class Route(models.Model):
-    route = models.CharField('route', max_length = 10)
-
-    # Base called method returns the route
-    def __unicode__(self):
-        return self.route
-
 # Manager class that instantiates the creation of a new teammate
 # source (i think): http://procrastinatingdev.com/django/using-configurable-user-models-in-django-1-5/
 class TeammateManager(BaseUserManager):
@@ -63,8 +45,15 @@ class Teammate(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('email address', max_length = 100, unique = True, db_index = True)
     first_name = models.CharField('first name', max_length = 35)
     last_name = models.CharField('last name', max_length = 35)
-    title = models.ForeignKey(Title, null = True)
-    route = models.ForeignKey(Route, null = True)
+    title = models.CharField('title', max_length = 100, default = 'Rider')
+
+    ROUTE_CHOICES = (
+      ( 'S', 'Sierra' ),
+      ( 'R', 'Rockies' ),
+      ( 'O', 'Ozarks' )
+    )
+
+    route = models.CharField(max_length=1, choices=ROUTE_CHOICES)
     date_of_birth = models.DateField('date of birth', help_text = 'YYYY-MM-DD format')
     is_staff = models.BooleanField('leadership status', default = False,
                                    help_text = 'Designates who may login to the admin area')
