@@ -93,6 +93,3 @@ class DashboardViews(TestCase):
         response = c.post(reverse('dashboard:change_password'), args)
         self.assertEqual(response.context['error_message'], "Your passwords don't match!")
 
-
-
-

@@ -23,7 +23,7 @@ def dashboard(request, rider=None):
         return HttpResponseRedirect(reverse('dashboard:login'))
 
     # Retreive total miles
-    rides = Ride.objects.filter(user_id__exact = tm)
+    rides = Ride.objects.filter(user_id__exact = tm).order_by('-date')
     miles = rides.aggregate(Sum('miles'))
     pace = rides.aggregate(Avg('pace'))
     duration = rides.aggregate(Sum('duration'))

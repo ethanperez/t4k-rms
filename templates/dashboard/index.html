@@ -25,7 +25,7 @@
   <div class="col-sm-4">
     <div class="panel panel-success">
       <div class="panel-heading">
-        <h3 class="panel-title">Fitness Information</h3>
+        <h3 class="panel-title">Fitness Summary</h3>
       </div>
       <ul class="list-group">
         <li class="list-group-item">Total Miles: {{ miles.miles__sum }}</li>
@@ -34,5 +34,19 @@
       </ul>
     </div>
   </div>
+</div>
+<div class="rides_header">
+  <h1> {{ rider.get_short_name }}'s Ride Log </h1>
+  <hr />
+</div>
+<div class="row">
+  {% for ride in rides %}
+  <div class="col-sm-4 ride">
+    <h3> {{ ride.date }} </h3>
+    <p> You rode <strong>{{ ride.miles }}</strong> miles at a pace of <strong>{{ ride.pace }} mph</strong>, and it took <strong>{{ ride.duration }} hours </strong>.</p>
+    <p> Rode With: {{ ride.buddies }} </p>
+    <blockquote> <p> {{ ride.comments }} </p> </blockquote>
+  </div>
+  {% endfor %}
 </div>
 {% endblock %}
