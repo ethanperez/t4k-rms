@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from riders.models import Teammate, Title, Route
+from riders.models import Teammate
 from riders.forms import TeammateCreationForm, TeammateChangeForm
 
 class TeammateAdmin(UserAdmin):
@@ -38,5 +38,3 @@ class TeammateAdmin(UserAdmin):
 
 # Take the above mention changes into effect
 admin.site.register(Teammate, TeammateAdmin)
-admin.site.register(Title)
-admin.site.register(Route)

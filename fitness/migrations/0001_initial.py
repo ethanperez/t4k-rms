@@ -59,11 +59,6 @@ class Migration(SchemaMigration):
             'pace': ('django.db.models.fields.DecimalField', [], {'max_digits': '3', 'decimal_places': '1'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['riders.Teammate']"})
         },
-        u'riders.route': {
-            'Meta': {'object_name': 'Route'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'route': ('django.db.models.fields.CharField', [], {'max_length': '10'})
-        },
         u'riders.teammate': {
             'Meta': {'object_name': 'Teammate'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
@@ -78,14 +73,9 @@ class Migration(SchemaMigration):
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'route': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['riders.Route']", 'null': 'True'}),
-            'title': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['riders.Title']", 'null': 'True'}),
+            'route': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
+            'title': ('django.db.models.fields.CharField', [], {'default': "'Rider'", 'max_length': '100'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"})
-        },
-        u'riders.title': {
-            'Meta': {'object_name': 'Title'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         }
     }
 

@@ -9,19 +9,13 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
 
-        # Changing field 'Teammate.title'
-        db.alter_column(u'riders_teammate', 'title_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['riders.Title'], null=True))
-
         # Changing field 'Teammate.route'
-        db.alter_column(u'riders_teammate', 'route_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['riders.Route'], null=True))
+        db.alter_column(u'riders_teammate', 'route', self.gf('django.db.models.fields.CharField')(max_length=20))
 
     def backwards(self, orm):
 
-        # Changing field 'Teammate.title'
-        db.alter_column(u'riders_teammate', 'title_id', self.gf('django.db.models.fields.related.ForeignKey')(default='Blank', to=orm['riders.Title']))
-
         # Changing field 'Teammate.route'
-        db.alter_column(u'riders_teammate', 'route_id', self.gf('django.db.models.fields.related.ForeignKey')(default='Blank', to=orm['riders.Route']))
+        db.alter_column(u'riders_teammate', 'route', self.gf('django.db.models.fields.CharField')(max_length=1))
 
     models = {
         u'auth.group': {
@@ -44,11 +38,6 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'riders.route': {
-            'Meta': {'object_name': 'Route'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'route': ('django.db.models.fields.CharField', [], {'max_length': '10'})
-        },
         u'riders.teammate': {
             'Meta': {'object_name': 'Teammate'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
@@ -63,14 +52,9 @@ class Migration(SchemaMigration):
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'route': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['riders.Route']", 'null': 'True'}),
-            'title': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['riders.Title']", 'null': 'True'}),
+            'route': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
+            'title': ('django.db.models.fields.CharField', [], {'default': "'Rider'", 'max_length': '100'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"})
-        },
-        u'riders.title': {
-            'Meta': {'object_name': 'Title'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         }
     }
 

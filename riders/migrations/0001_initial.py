@@ -8,20 +8,6 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Title'
-        db.create_table(u'riders_title', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100)),
-        ))
-        db.send_create_signal(u'riders', ['Title'])
-
-        # Adding model 'Route'
-        db.create_table(u'riders_route', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('route', self.gf('django.db.models.fields.CharField')(max_length=10)),
-        ))
-        db.send_create_signal(u'riders', ['Route'])
-
         # Adding model 'Teammate'
         db.create_table(u'riders_teammate', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -31,8 +17,8 @@ class Migration(SchemaMigration):
             ('email', self.gf('django.db.models.fields.EmailField')(unique=True, max_length=100, db_index=True)),
             ('first_name', self.gf('django.db.models.fields.CharField')(max_length=35)),
             ('last_name', self.gf('django.db.models.fields.CharField')(max_length=35)),
-            ('title', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['riders.Title'], blank=True)),
-            ('route', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['riders.Route'], blank=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(default='Rider', max_length=100)),
+            ('route', self.gf('django.db.models.fields.CharField')(max_length=1)),
             ('date_of_birth', self.gf('django.db.models.fields.DateField')()),
             ('is_staff', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
@@ -60,12 +46,6 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
-        # Deleting model 'Title'
-        db.delete_table(u'riders_title')
-
-        # Deleting model 'Route'
-        db.delete_table(u'riders_route')
-
         # Deleting model 'Teammate'
         db.delete_table(u'riders_teammate')
 
@@ -97,11 +77,6 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'riders.route': {
-            'Meta': {'object_name': 'Route'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'route': ('django.db.models.fields.CharField', [], {'max_length': '10'})
-        },
         u'riders.teammate': {
             'Meta': {'object_name': 'Teammate'},
             'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
@@ -116,14 +91,9 @@ class Migration(SchemaMigration):
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'route': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['riders.Route']", 'blank': 'True'}),
-            'title': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['riders.Title']", 'blank': 'True'}),
+            'route': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
+            'title': ('django.db.models.fields.CharField', [], {'default': "'Rider'", 'max_length': '100'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"})
-        },
-        u'riders.title': {
-            'Meta': {'object_name': 'Title'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         }
     }
 
