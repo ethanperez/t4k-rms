@@ -11,8 +11,25 @@ from riders.models import Teammate
 from fitness.models import Ride
 from django.utils.html import escape
 
+
+def all_riders(request):
+    #TODO maybe we should write a test
+    total_miles = Ride.objects.all().aggregate(Sum('miles'))['miles__sum']
+    total_time = Ride.objects.all().aggregate(Sum('duration'))['duration__sum']
+
+    #TODO: doing two database joins, this is probably not a good idea in general
+    riders = Teammate.objects
+    riders = riders.annotate(total_miles = Sum('ride__miles'))
+    riders = riders.annotate(total_time = Sum('ride__duration'))
+    riders = riders.order_by('-total_miles')
+    context = {
+        'riders' : riders,
+        'total_miles' : total_miles,
+        'total_time' : total_time
+    }
+    return render(request, 'dashboard/all_riders.html', context)
+
 # Base dashboard view
-# @login_required
 def dashboard(request, rider=None):
 
     if rider:

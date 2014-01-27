@@ -17,8 +17,8 @@
         <li class="list-group-item">Name: {{ rider.get_full_name }}</li>
         <li class="list-group-item">Email: {{ rider.get_email }}</li>
         <li class="list-group-item">Title: {{ rider.get_title }}</li>
-        <li class="list-group-item">Route: {{ rider.route }}</li>
-        <li class="list-group-item">Date of birth: {{ rider.get_dob }}</li>
+        <li class="list-group-item">Route: {{ rider.route|title }}</li>
+        <li class="list-group-item">Date of Birth: {{ rider.get_dob }}</li>
       </ul>
     </div>
   </div>
@@ -41,9 +41,9 @@
 </div>
 <div class="row">
   {% for ride in rides %}
-  <div class="col-sm-4 ride">
+  <div class="col-sm-6 ride">
     <h3> {{ ride.date }} </h3>
-    <p> You rode <strong>{{ ride.miles }}</strong> miles at a pace of <strong>{{ ride.pace }} mph</strong>, and it took <strong>{{ ride.duration }} hours </strong>.</p>
+    <p> <strong>{{ ride.miles }}</strong> miles at a pace of <strong>{{ ride.pace }} mph</strong>, and it took <strong>{{ ride.duration }} hours </strong>.</p>
     <p> Rode With: {{ ride.buddies }} </p>
     <blockquote> <p> {{ ride.comments }} </p> </blockquote>
   </div>
