@@ -104,6 +104,7 @@ def log_ride(request):
         return render(request, 'dashboard/add_ride.html', {})
 
 # Change user's password
+@login_required
 def change_password(request):
     # If the form has been submitted
     if request.method == 'POST':
