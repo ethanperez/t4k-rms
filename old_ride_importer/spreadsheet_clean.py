@@ -3,16 +3,6 @@
 import csv
 import sys
 
-# USAGE
-# start with an originals/<x>.csv file
-# remove the timestamps and total miles columns
-# assert that the first row of headers is all spelled right
-# sort by "have you ridden", and take out the no's
-# go through names if you want, or you con do it after
-# save it using excel, move it to the cleaned folder
-# run python clean_spreadsheet.py clean/x.csv clean/x_cleaned.csv
-# if you mess up, just run it again
-
 # TODO: the other half where we save it
 # pass a dict to model create http://stackoverflow.com/questions/1571570/can-a-dictionary-be-passed-to-django-models-on-create
 
