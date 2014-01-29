@@ -9,7 +9,6 @@ import time
 from decimal import Decimal
 from riders.models import Teammate
 from fitness.models import Ride
-from django.utils.html import escape
 
 
 def all_riders(request):
@@ -99,11 +98,11 @@ def log_ride(request):
     # If the form has been submitted
     if request.method == 'POST':
         # Give the post variables a variable
-        buddies = escape(request.POST['partners'])
+        buddies = request.POST['partners']
         miles = request.POST['miles']
         pace = request.POST['pace']
         time_logged = request.POST['time']
-        comments = escape(request.POST['comments'])
+        comments = request.POST['comments']
         date = request.POST['date']
         # Set the time to the right format
         h = int(time.strftime("%I", time.strptime(time_logged, "%I:%M:%S")))
@@ -130,7 +129,7 @@ def change_password(request):
         if request.POST['password1'] == request.POST['password2'] and request.POST['password2'] is not None:
             # Change the password
             u = Teammate.objects.get(id__exact = request.user.id)
-            u.set_password(escape(request.POST['password2']))
+            u.set_password(request.POST['password2'])
             u.save()
             return HttpResponseRedirect(reverse('dashboard:dashboard'))
         else:

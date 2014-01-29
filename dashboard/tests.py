@@ -53,6 +53,27 @@ class DashboardViews(TestCase):
         self.assertEqual(response.url, reverse('dashboard:dashboard'))
         self.assertEqual(Ride.objects.count() - num_rides, 1)
 
+    def test_log_ride_escaped_chars(self):
+        # create an instance of the post request
+        args = { 'partners' : "parth&&''", 'miles' : 10, 'pace' : 10, 'time': "01:01:01", 'comments' : 'abcde!!&&', 'date' : '2014-01-25' }
+        request = self.factory.post('/log/ride', args)
+
+        self.assertTrue(Ride.objects.count() == 0)
+        # simulate login since we don't have access to middleware
+        request.user = self.user
+        num_rides = Ride.objects.count()
+
+        # "run" the request, as it were
+        response = log_ride(request)
+
+        # assert a redirect to the original dashboard
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse('dashboard:dashboard'))
+        r = Ride.objects.first()
+        self.assertEqual(r.comments, "abcde!!&&")
+        self.assertEqual(r.buddies, "parth&&''")
+        self.assertEqual(Ride.objects.count() - num_rides, 1)
+
     def test_dashboard_not_logged_in(self):
         # TODO: this behavior is going to change most definitely
         # with no one logged in, it should prompt you to log in
@@ -78,12 +99,12 @@ class DashboardViews(TestCase):
     def test_password_change(self):
         c = Client()
         c.login(username='derp@derp.com', password='top_secret_pass')
-        args = { 'password1' : 'new_pass', 'password2' : 'new_pass' }
+        args = { 'password1' : '&!new_pass', 'password2' : '&!new_pass' }
         c.post(reverse('dashboard:change_password'), args)
         c.logout()
         result = c.login(username='derp@derp.com', password='top_secret_pass')
         self.assertFalse(result)
-        result = c.login(username='derp@derp.com', password='new_pass')
+        result = c.login(username='derp@derp.com', password='&!new_pass')
         self.assertTrue(result)
 
     def test_different_passwords_change(self):
