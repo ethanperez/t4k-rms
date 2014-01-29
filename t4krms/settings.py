@@ -20,7 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'e^%cs)$-fjl532&ztu3bd(!q8h^ucf$44&)4h8((ur4ggzcn(-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+#DEBUG = True
 
 TEMPLATE_DEBUG = True
 
@@ -84,7 +85,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = Trueg
 
 
 # Static files (CSS, JavaScript, Images)
@@ -97,3 +98,10 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
     os.path.join(BASE_DIR, 'templates/dashboard'),
 )
+
+# Import a local settings file (for use on production server)
+try:
+    from local_settings import *
+# If there is no config file...don't worry about it
+except ImportError:
+    pass
