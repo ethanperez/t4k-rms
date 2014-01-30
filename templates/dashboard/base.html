@@ -32,7 +32,8 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'dashboard:dashboard' %}">Home</a></li>
+			{% block header %}
+			<li><a href="{% url 'dashboard:dashboard' %}">Home</a></li>
             {% if not user.is_anonymous %}
             <li><a href="{% url 'dashboard:log_ride' %}">Log Ride</a></li>
             {% endif %}
@@ -41,8 +42,8 @@
             {% if not user.is_anonymous %}
             <li><a href="{% url 'dashboard:change_password' %}">Change Password</a></li>
             <li><a href="{% url 'dashboard:logout' %}">Logout</a></li>
-            <li class="navbar-text">I'm {{ user.get_full_name }}?</li>
             {% endif %}
+			{% endblock %}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
