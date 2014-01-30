@@ -7,6 +7,11 @@ https://docs.djangoproject.com/en/1.6/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
+"""
+ALL OF THESE SETTINGS ARE FOR DEVELOPMENT ONLY;
+include a local_settings.config file on the production
+server.
+"""
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -21,7 +26,7 @@ SECRET_KEY = 'e^%cs)$-fjl532&ztu3bd(!q8h^ucf$44&)4h8((ur4ggzcn(-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-#DEBUG = True
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
@@ -101,7 +106,7 @@ TEMPLATE_DIRS = (
 
 # Import a local settings file (for use on production server)
 try:
-    from local_settings import *
+    from local_settings.config import *
 # If there is no config file...don't worry about it
 except ImportError:
     pass
