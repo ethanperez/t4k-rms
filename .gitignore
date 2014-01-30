@@ -9,3 +9,6 @@
 
 # Hide local settings files
 /local_settings/
+
+# Hide static files
+/static/
