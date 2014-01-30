@@ -10,9 +10,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-# For django-suit
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -24,7 +21,7 @@ SECRET_KEY = 'e^%cs)$-fjl532&ztu3bd(!q8h^ucf$44&)4h8((ur4ggzcn(-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+#DEBUG = True
 
 TEMPLATE_DEBUG = True
 
@@ -38,7 +35,8 @@ LOGIN_URL = '/login'
 # Application definition
 
 INSTALLED_APPS = (
-    'suit',
+    'django_admin_bootstrapped.bootstrap3',
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -94,15 +92,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-
-# For django-suit
-TEMPLATE_CONTEXT_PROCESSORS = TCP + (
-    'django.core.context_processors.request',
-)
-
-SUIT_CONFIG = {
-    'ADMIN_NAME': 'Texas 4000 Rider Management System',
-}
 
 # Where to look for templates
 TEMPLATE_DIRS = (
