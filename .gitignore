@@ -6,3 +6,6 @@
 
 # SQL backup dumps
 /sqldumps/
+
+# Hide local settings files
+/local_settings/
