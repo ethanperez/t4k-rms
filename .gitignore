@@ -9,6 +9,7 @@
 
 # Hide local settings files
 /local_settings/
+config.py
 
 # Hide static files
 /static/
