@@ -17,6 +17,14 @@ server.
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+## -> Config options that must be defined in local settings
+## Import a local settings file (for use on production server)
+try:
+    from t4krms.config import *
+# If there is no config file...don't worry about it
+except ImportError:
+    pass
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -26,11 +34,11 @@ SECRET_KEY = 'e^%cs)$-fjl532&ztu3bd(!q8h^ucf$44&)4h8((ur4ggzcn(-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+##DEBUG = True
 
-TEMPLATE_DEBUG = True
+##TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+##ALLOWED_HOSTS = []
 
 # Auth model changed to custom 'riders'
 AUTH_USER_MODEL = 'riders.Teammate'
@@ -71,14 +79,14 @@ WSGI_APPLICATION = 't4krms.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
+""" Define in local dev settings
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+"""
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -103,10 +111,3 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
     os.path.join(BASE_DIR, 'templates/dashboard'),
 )
-
-# Import a local settings file (for use on production server)
-try:
-    from local_settings.config import *
-# If there is no config file...don't worry about it
-except ImportError:
-    pass
