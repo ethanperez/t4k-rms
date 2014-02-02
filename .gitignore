@@ -13,3 +13,6 @@ config.py
 
 # Hide static files
 /static/
+
+# Hide local settings file
+/t4krms/local_settings.py
