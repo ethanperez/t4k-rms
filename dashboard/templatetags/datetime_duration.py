@@ -8,6 +8,6 @@ register = template.Library()
 def timedelta(value):
     if not value:
         return "0"
-    int(time = value / 1000000)
+    time = int(value / 1000000)
     delta = datetime.timedelta(0, time)
     return str(delta)
