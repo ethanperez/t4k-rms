@@ -30,13 +30,11 @@ with open(filename, 'rU') as csvfile:
     # output file for errors that need to be manually sorted out
     output_file = open(output, 'w')
     writer = csv.writer(output_file)
-    header = []
     first = True
-
-    out_row = []
 
     # for each person
     for line in reader:
+        out_row = []
 
         # header row
         if first:
@@ -99,9 +97,12 @@ with open(filename, 'rU') as csvfile:
                 for i in xrange(5):
                     out_row.append("")
                 continue
-            miles = float(line[idx])
+
+            # miles = float(line[idx])
+            miles = line[idx]
             time = line[idx+1]
-            pace = float(line[idx+2])
+            # pace = float(line[idx+2])
+            pace = line[idx+2]
             buddies = line[idx+3]
             description = line[idx+4]
 
@@ -114,11 +115,21 @@ with open(filename, 'rU') as csvfile:
             print "Description: {0}\n".format(description)
             response = raw_input('Is that good (y/n): ')
             if response == 'y' or response == 'yes':
-                for i in xrange(5):
-                    out_row.append("")
-                r = Ride(user=rider, date=str(curr_date), buddies=buddies, miles=miles, pace=pace, duration=time, comments=description)
-                r.save()
-                print "done."
+                try:
+                    miles = float(miles)
+                    pace = float(pace)
+                    r = Ride(user=rider, date=str(curr_date), buddies=buddies, miles=miles, pace=pace, duration=time, comments=description)
+                    r.save()
+                    for i in xrange(5):
+                        out_row.append("")
+                    print "done."
+                except:
+                    print "it didn't work. put in the output file, look at it later."
+                    out_row.append(miles)
+                    out_row.append(time)
+                    out_row.append(pace)
+                    out_row.append(buddies)
+                    out_row.append(description)
             else:
                 out_row.append(miles)
                 out_row.append(time)
