@@ -23,18 +23,25 @@ if len(sys.argv) < 4:
 filename = sys.argv[1]
 start_date = datetime.strptime(sys.argv[2], "%Y-%m-%d").date()
 output = sys.argv[3]
-# pass a dict to model create http://stackoverflow.com/questions/1571570/can-a-dictionary-be-passed-to-django-models-on-create
 
 with open(filename, 'rU') as csvfile:
     reader = csv.reader(csvfile)
-    output_file = open('output_file', 'w')
+
+    # output file for errors that need to be manually sorted out
+    output_file = open(output, 'w')
     writer = csv.writer(output_file)
     header = []
     first = True
 
     out_row = []
+
+    # for each person
     for line in reader:
+
+        # header row
         if first:
+            # write headers
+            writer.writerow(line);
             first = False
             continue
 
@@ -51,8 +58,12 @@ with open(filename, 'rU') as csvfile:
         first_name = name.split(' ', 1)[0]
         last_name = name.split(' ', 1)[1]
 
+        # Attempt to find a user based on a name
+
+        # search by first name
         query = Teammate.objects.filter(first_name__iexact = first_name)
 
+        # if we can't find someone with that first name, write the line out and continue
         if len(query) <= 0:
             print "UNKNOWN NAME: {0}. Skipping....".format(name)
             writer.writerow(line)
@@ -80,8 +91,9 @@ with open(filename, 'rU') as csvfile:
                 continue
 
         assert(rider is not None)
-        curr_date = start_date
+        curr_date = start_date + timedelta(days=-1)
         for day in xrange(7):
+            curr_date += timedelta(days=1)
             idx = NUM_FIELDS * day + 2 # get past first 2
             if line[idx].strip() == '':
                 for i in xrange(5):
@@ -115,6 +127,7 @@ with open(filename, 'rU') as csvfile:
                 out_row.append(description)
                 print "cool, i'll leave it."
 
-            curr_date += timedelta(days=1)
 
         writer.writerow(out_row)
+
+    output_file.close();
