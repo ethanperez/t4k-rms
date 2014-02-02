@@ -53,10 +53,11 @@ with open(filename, 'rU') as csvfile:
         # TODO: I hope this works with middle names.....
         #  Jennifer Sunshine Garrison
         #  Rachel Madi Madison
-        first_name = name.split(' ', 1)[0]
+        temp = name.split(' ', 1)
+        first_name = temp[0]
         last_name = ''
-        if len(name) > 1:
-            last_name = name.split(' ', 1)[1]
+        if len(temp) > 1:
+            last_name = temp[1]
 
         # Attempt to find a user based on a name
 
@@ -107,6 +108,8 @@ with open(filename, 'rU') as csvfile:
             pace = line[idx+2]
             buddies = line[idx+3]
             description = line[idx+4]
+            if description.strip() == '':
+                description = 'great ride!'
 
             print "Logging Ride For {0}".format(rider.get_full_name())
             print "Date: {0}".format(curr_date)
