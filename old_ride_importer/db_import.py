@@ -54,7 +54,9 @@ with open(filename, 'rU') as csvfile:
         #  Jennifer Sunshine Garrison
         #  Rachel Madi Madison
         first_name = name.split(' ', 1)[0]
-        last_name = name.split(' ', 1)[1]
+        last_name = ''
+        if len(name) > 1:
+            last_name = name.split(' ', 1)[1]
 
         # Attempt to find a user based on a name
 
