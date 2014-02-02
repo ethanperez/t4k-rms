@@ -53,6 +53,23 @@ class DashboardViews(TestCase):
         self.assertEqual(response.url, reverse('dashboard:dashboard'))
         self.assertEqual(Ride.objects.count() - num_rides, 1)
 
+    def test_log_ride_time_format(self):
+        # create an instance of the post request
+        args = { 'partners' : "parth", 'miles' : 10, 'pace' : 10, 'time': "01:01", 'comments' : 'haderp', 'date' : '2014-01-25' }
+        request = self.factory.post('/log/ride', args)
+
+        # simulate login since we don't have access to middleware
+        request.user = self.user
+        num_rides = Ride.objects.count()
+
+        # "run" the request, as it were
+        response = log_ride(request)
+
+        # assert it goes to the page again and no rides added
+        # TODO this isn't good enough
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Ride.objects.count(), num_rides)
+
     def test_log_ride_escaped_chars(self):
         # create an instance of the post request
         args = { 'partners' : "parth&&''", 'miles' : 10, 'pace' : 10, 'time': "01:01:01", 'comments' : 'abcde!!&&', 'date' : '2014-01-25' }

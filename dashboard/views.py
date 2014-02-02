@@ -104,10 +104,27 @@ def log_ride(request):
         time_logged = request.POST['time']
         comments = request.POST['comments']
         date = request.POST['date']
+
+        new_time = None
+        try:
+            new_time = time.strptime(time_logged, "%I:%M:%S")
+        except ValueError:
+            context = {
+              'buddies' : buddies,
+              'miles' : miles,
+              'pace' : pace,
+              'comments' : comments,
+              'ride_date' : date,
+              'time_logged_error' : "Invalid time format. Use HH:MM:SS",
+            }
+            return render(request, 'dashboard/add_ride.html', context)
+
         # Set the time to the right format
-        h = int(time.strftime("%I", time.strptime(time_logged, "%I:%M:%S")))
-        m = int(time.strftime("%M", time.strptime(time_logged, "%I:%M:%S")))
-        s = int(time.strftime("%S", time.strptime(time_logged, "%I:%M:%S")))
+        h = new_time.tm_hour
+        m = new_time.tm_min
+        s = new_time.tm_sec
+
+        #TODO do we need to do this
         final_time = (((h*3600)+(m*60)+(s))*1000000)
 
         # Save into the database
