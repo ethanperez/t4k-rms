@@ -5,7 +5,7 @@ from fitness.models import Ride
 class RideAdmin(admin.ModelAdmin):
 
     # Fields to list
-    list_display = ('user', 'date', 'duration', 'miles', 'pace')
+    list_display = ('user', 'date', 'duration', 'miles', 'pace', 'buddies')
     # Fields to allow filtering by
     list_filter = ('date',)
     # Fields to seach in with search bay
