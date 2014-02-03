@@ -1,26 +1,29 @@
 # week 2: [week 1 on the breakdown] 2013-11-25 to 2013-12-01
-python db_import.py cleaned/week_2_miles.csv 2013-11-25 bad_output.csv
+yes | python db_import.py cleaned/week_2_miles.csv 2013-11-25 week_2_bad_output.csv
 
 # week 2.1: [week 2 on the breakdown] 2013-12-02 to 2013-12-08
-python db_import.py cleaned/week_2.1_miles.csv 2013-12-02 bad_output.csv
+yes | python db_import.py cleaned/week_2.1_miles.csv 2013-12-02 week_2.1_bad_output.csv
 
 # week 3: 2013-12-09 to 2013-12-15
-python db_import.py cleaned/week_3_miles.csv 2013-12-09 bad_output.csv
+yes | python db_import.py cleaned/week_3_miles.csv 2013-12-09 week_3_bad_output.csv
 
 # week 4: 2013-12-16 to 2013-12-22
-python db_import.py cleaned/week_4_miles.csv 2013-12-16 bad_output.csv
+yes | python db_import.py cleaned/week_4_miles.csv 2013-12-16 week_4_bad_output.csv
 
 # week 5: 2013-12-23 to 2013-12-29
-python db_import.py cleaned/week_5_miles.csv 2013-12-23 bad_output.csv
+yes | python db_import.py cleaned/week_5_miles.csv 2013-12-23 week_5_bad_output.csv
 
 # week 6: 2013-12-30 to 2014-01-05
-python db_import.py cleaned/week_6_miles.csv 2013-12-30 bad_output.csv
+yes | python db_import.py cleaned/week_6_miles.csv 2013-12-30 week_6_bad_output.csv
 
 # week 7: 2014-01-06 to 2014-01-12
-python db_import.py cleaned/week_7_miles.csv 2014-01-06 bad_output.csv
+yes | python db_import.py cleaned/week_7_miles.csv 2014-01-06 week_7_bad_output.csv
 
 # week 8: 2014-01-13 to 2014-01-19
-python db_import.py cleaned/week_8_miles.csv 2014-01-13 bad_output.csv
+yes | python db_import.py cleaned/week_8_miles.csv 2014-01-13 week_8_bad_output.csv
 
 # week 9: 2014-01-20 to 2014-01-26
-python db_import.py cleaned/week_9_miles.csv 2014-01-20 bad_output.csv
+yes | python db_import.py cleaned/week_9_miles.csv 2014-01-20 week_9_bad_output.csv
+
+# discrepancy miles:
+yes | python db_import.py cleaned/discrepancy_miles.csv 2013-10-01 discrepancy_bad_output.csv
