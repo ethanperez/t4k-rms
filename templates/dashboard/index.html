@@ -60,7 +60,9 @@
     <h3> {{ ride.date }} </h3>
     <p> <strong>{{ ride.miles }}</strong> miles at a pace of <strong>{{ ride.pace }} mph</strong>, and it took <strong>{{ ride.duration }} hours </strong>.</p>
     <p> Rode With: {{ ride.buddies }} </p>
+    {% if import_date < ride.date %}
     <blockquote> <p> {{ ride.comments }} </p> </blockquote>
+    {% endif %}
   </div>
   {% endfor %}
 </div>
