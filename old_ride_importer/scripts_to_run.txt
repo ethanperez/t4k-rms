@@ -22,5 +22,5 @@ python db_import.py cleaned/week_7_miles.csv 2014-01-06 bad_output.csv
 # week 8: 2014-01-13 to 2014-01-19
 python db_import.py cleaned/week_8_miles.csv 2014-01-13 bad_output.csv
 
-# week 8: 2014-01-20 to 2014-01-26
-python db_import.py cleaned/week_8_miles.csv 2014-01-20 bad_output.csv
+# week 9: 2014-01-20 to 2014-01-26
+python db_import.py cleaned/week_9_miles.csv 2014-01-20 bad_output.csv
