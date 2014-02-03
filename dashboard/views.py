@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Sum, Avg
-from datetime import datetime
+from datetime import datetime, date
 import time
 from decimal import Decimal
 from riders.models import Teammate
@@ -50,7 +50,8 @@ def dashboard(request, rider=None):
         'pace': pace,
         'duration': duration,
         'rides' : rides,
-        'rider' : tm
+        'rider' : tm,
+        'import_date' : date(2014,01,26),
     }
 
     return render(request, 'dashboard/index.html', context)
