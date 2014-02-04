@@ -12,6 +12,9 @@
 </ul>
 <ul class="nav navbar-nav navbar-right">
   {% if not user.is_anonymous %}
+  {% if user.is_staff %}
+  <li><a href="/admin">Admin</a><li>
+  {% endif %}
   <li><a href="{% url 'dashboard:change_password' %}">Change Password</a></li>
   <li><a href="{% url 'dashboard:logout' %}">Logout</a></li>
   {% endif %}
@@ -60,9 +63,6 @@
     <h3> {{ ride.date }} </h3>
     <p> <strong>{{ ride.miles }}</strong> miles at a pace of <strong>{{ ride.pace }} mph</strong>, and it took <strong>{{ ride.duration }} hours </strong>.</p>
     <p> Rode With: {{ ride.buddies }} </p>
-    {% if import_date < ride.date %}
-    <blockquote> <p> {{ ride.comments }} </p> </blockquote>
-    {% endif %}
   </div>
   {% endfor %}
 </div>
