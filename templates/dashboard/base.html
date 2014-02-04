@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
-    <meta name="viewport" content="width=device-with, initial-score=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title> {% block title %} Texas 4000 Rider Management System | Dashboard {% endblock %}</title>
     {% load datetime_duration %}
     <!-- Stylesheets -->
-    <link rel="stylesheet" type="text/css" href="//static.t4k2014.com/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="//static.t4k2014.com/fixnav.css">
     <link rel="stylesheet" type="text/css" href="//static.t4k2014.com/datepicker3.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -31,7 +31,7 @@
           <a class="navbar-brand" href={% url 'dashboard:all_riders' %}>Texas 4000 RMS</a>
         </div>
         <div class="navbar-collapse collapse">
-		  {% block navbar %}
+          {% block navbar %}
           <ul class="nav navbar-nav">
             <li><a href="{% url 'dashboard:dashboard' %}">Home</a></li>
             {% if not user.is_anonymous %}
@@ -44,19 +44,19 @@
             <li><a href="{% url 'dashboard:logout' %}">Logout</a></li>
             {% endif %}
           </ul>
-		  {% endblock %}
+          {% endblock %}
         </div><!--/.nav-collapse -->
       </div>
     </div>
     <div class="container">
-    {% block content %} {% endblock %}
+      {% block content %} {% endblock %}
     </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="//static.t4k2014.com/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//static.t4k2014.com/bootstrap-datepicker.js"></script>
     <script>
       $(document).ready(function () {
