@@ -40,6 +40,9 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if not user.is_anonymous %}
+		    {% if user.is_staff %}
+		    <li><a href="{% url 'admin' %}">Admin</a><li>
+		    {% endif %}
             <li><a href="{% url 'dashboard:change_password' %}">Change Password</a></li>
             <li><a href="{% url 'dashboard:logout' %}">Logout</a></li>
             {% endif %}
