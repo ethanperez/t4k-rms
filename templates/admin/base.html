@@ -73,6 +73,8 @@
                     <a href="{{ docsroot }}">{% trans 'Documentation' %}</a>
                    <span class="separator">|</span>
                   {% endif %}
+				  <a href="{% url 'dashboard:dashboard' %}">{% trans 'Back to RMS' %}</a>
+				  <span class="separator">|</span>
                   <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a>
                   <span class="separator">|</span>
                   <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
