@@ -13,6 +13,7 @@ class Ride(models.Model):
     pace = models.DecimalField('average pace', max_digits = 3, decimal_places = 1)
     duration = DurationField('time to complete ride', help_text = 'HH:MM:SS format')
     comments = models.TextField('comments')
+    time_logged = models.DateTimeField('logged', auto_now_add = True)
 
     # Method to create a new ride
     def log(cls, user, date, buddies, miles, pace, duration, comments):
@@ -46,3 +47,7 @@ class Ride(models.Model):
     def get_duration(self):
         # Returns the time it took to ride
         return self.duration
+        
+    def get_logged(self):
+        # Return the time the ride was logged at
+        return self.time_logged
