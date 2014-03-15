@@ -18,7 +18,7 @@ class Migration(SchemaMigration):
             ('first_name', self.gf('django.db.models.fields.CharField')(max_length=35)),
             ('last_name', self.gf('django.db.models.fields.CharField')(max_length=35)),
             ('title', self.gf('django.db.models.fields.CharField')(default='Rider', max_length=100)),
-            ('route', self.gf('django.db.models.fields.CharField')(max_length=1)),
+            ('route', self.gf('django.db.models.fields.CharField')(max_length=20)),
             ('date_of_birth', self.gf('django.db.models.fields.DateField')()),
             ('is_staff', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
@@ -91,7 +91,7 @@ class Migration(SchemaMigration):
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'route': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
+            'route': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'title': ('django.db.models.fields.CharField', [], {'default': "'Rider'", 'max_length': '100'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"})
         }

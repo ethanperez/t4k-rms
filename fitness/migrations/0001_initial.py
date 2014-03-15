@@ -18,6 +18,7 @@ class Migration(SchemaMigration):
             ('pace', self.gf('django.db.models.fields.DecimalField')(max_digits=3, decimal_places=1)),
             ('duration', self.gf('durationfield.db.models.fields.duration.DurationField')()),
             ('comments', self.gf('django.db.models.fields.TextField')()),
+            ('time_logged', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, null=True, blank=True)),
         ))
         db.send_create_signal(u'fitness', ['Ride'])
 
@@ -57,6 +58,7 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'miles': ('django.db.models.fields.DecimalField', [], {'max_digits': '5', 'decimal_places': '2'}),
             'pace': ('django.db.models.fields.DecimalField', [], {'max_digits': '3', 'decimal_places': '1'}),
+            'time_logged': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'null': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['riders.Teammate']"})
         },
         u'riders.teammate': {
@@ -73,7 +75,7 @@ class Migration(SchemaMigration):
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'route': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
+            'route': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
             'title': ('django.db.models.fields.CharField', [], {'default': "'Rider'", 'max_length': '100'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"})
         }
