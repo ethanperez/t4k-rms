@@ -1,5 +1,4 @@
 Django==1.7
-South==0.8.4
 django-durationfield==0.4.0
 django-suit==0.2.5
 wsgiref==0.1.2
