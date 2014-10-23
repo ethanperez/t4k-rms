@@ -36,3 +36,47 @@ def rides(request, rider=None):
     }
 
     return render(request, 'fitness/log.html', context)
+
+@login_required
+def log(request):
+    # If the form has been submitted
+    if request.method == 'POST':
+        # Give the post variables a variable
+        buddies = request.POST['partners']
+        miles = request.POST['miles']
+        pace = request.POST['pace']
+        time_logged = request.POST['time']
+        comments = request.POST['comments']
+        date = request.POST['date']
+
+        new_time = None
+        try:
+            new_time = time.strptime(time_logged, "%I:%M:%S")
+        except ValueError:
+            context = {
+              'buddies' : buddies,
+              'miles' : miles,
+              'pace' : pace,
+              'comments' : comments,
+              'ride_date' : date,
+              'time_logged_error' : "Invalid time format. Use HH:MM:SS",
+            }
+            return render(request, 'fitness/add.html', context)
+
+        # Set the time to the right format
+        h = new_time.tm_hour
+        m = new_time.tm_min
+        s = new_time.tm_sec
+
+        #TODO do we need to do this
+        final_time = (((h*3600)+(m*60)+(s))*1000000)
+
+        # Save into the database
+        object = Ride.objects.create(user_id = request.user.id, buddies = buddies,
+                date = date, miles = Decimal(miles), pace = Decimal(pace),
+                duration = final_time, comments = comments)
+        object.save()
+        # Return to homepage
+        return HttpResponseRedirect(reverse('fitness:rides'))
+    else: # Return an normal page
+        return render(request, 'fitness/add.html', {})
