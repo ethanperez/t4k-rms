@@ -26,7 +26,7 @@ def all_riders(request):
         'total_miles' : total_miles,
         'total_time' : total_time
     }
-    return render(request, 'dashboard/all_riders.html', context)
+    return render(request, 'dashboard/team_stats.html', context)
 
 # Base dashboard view
 def dashboard(request, rider=None):

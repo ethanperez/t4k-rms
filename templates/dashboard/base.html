@@ -29,7 +29,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href={% url 'dashboard:all_riders' %}>Texas 4000 RMS</a>
+          <a class="navbar-brand" href={% url 'dashboard:dashboard' %}>Texas 4000 RMS</a>
         </div>
         <div class="navbar-collapse collapse">
           {% block navbar %}
@@ -39,7 +39,7 @@
 		    <li class="dropdown">
 		    	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Fitness <b class="caret"></b></a>
 		      <ul class="dropdown-menu">
-		  	  <li><a href="#">Rides</a></li>
+		  	  <li><a href="{% url 'fitness:rides' %}">Rides</a></li>
 		      </ul>
 		    </li>
 		    <li class="dropdown">
@@ -62,7 +62,7 @@
 		    {% if user.is_staff %}
 		    <li><a href="{% url 'admin:index' %}">Admin</a><li>
 		    {% endif %}
-		    <li><a href="#">Team Stats</a></li>
+		    <li><a href="{% url 'dashboard:team_stats' %}">Team Stats</a></li>
 		    <li><a href="#">My Profile</a></li>
 		    <li><a href="{% url 'dashboard:logout' %}">Logout</a></li>
 		    {% endif %}
