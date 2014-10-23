@@ -68,7 +68,14 @@ def enter_gate(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reverse('dashboard:dashboard'))
+                # First login
+                tm = Teammate.objects.get(id__exact = request.user.id)
+                if tm.first_login == True:
+                    # Redirect to first_login page
+                    return HttpResponseRedirect(reverse('dashboard:first_login'))
+                else:
+                    # Redirect straight to the dashboard
+                    return HttpResponseRedirect(reverse('dashboard:dashboard'))
             # If the user isn't active
             else:
                 # Return context error message
@@ -157,3 +164,24 @@ def change_password(request):
            return render(request, 'dashboard/change_password.html', context)
     else: # First time visiting page
         return render(request, 'dashboard/change_password.html', {})
+
+# Change user's password upon first login
+@login_required
+def first_login(request):
+    # If the form has been submitted
+    if request.method == 'POST':
+        # Check if the passwords match
+        if request.POST['password1'] == request.POST['password2'] and request.POST['password2'] is not None:
+            # Change the password
+            u = Teammate.objects.get(id__exact = request.user.id)
+            u.set_password(request.POST['password2'])
+            u.first_login = False
+            u.save()
+            return HttpResponseRedirect(reverse('dashboard:dashboard'))
+        else:
+           context = {
+               'error_message': "Your passwords don't match!"
+           }
+           return render(request, 'dashboard/first_login.html', context)
+    else: # First time visiting page
+        return render(request, 'dashboard/first_login.html', {})
