@@ -172,9 +172,15 @@ def first_login(request):
     if request.method == 'POST':
         # Check if the passwords match
         if request.POST['password1'] == request.POST['password2'] and request.POST['password2'] is not None:
-            # Change the password
+            # Change the password and user data
             u = Teammate.objects.get(id__exact = request.user.id)
             u.set_password(request.POST['password2'])
+            u.email = request.POST['email']
+            u.first_name = request.POST['first_name']
+            u.last_name = request.POST['last_name']
+            u.title = request.POST['title']
+            u.route = request.POST['route']
+            u.date_of_birth = request.POST['date_of_birth']
             u.first_login = False
             u.save()
             return HttpResponseRedirect(reverse('dashboard:dashboard'))
@@ -184,4 +190,10 @@ def first_login(request):
            }
            return render(request, 'dashboard/first_login.html', context)
     else: # First time visiting page
-        return render(request, 'dashboard/first_login.html', {})
+        # Get teammate
+        tm = Teammate.objects.get(id__exact = request.user.id)
+        # Create context
+        context = {
+            'rider' : tm,
+        }
+        return render(request, 'dashboard/first_login.html', context)
