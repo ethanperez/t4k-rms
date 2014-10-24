@@ -3,44 +3,6 @@
 {# TODO: I don't understand why I have to load it again =/ #}
 {% load datetime_duration %}
 
-{% block navbar %}
-<ul class="nav navbar-nav">
-  <li class="active"><a href="{% url 'dashboard:dashboard' %}">Home</a></li>
-  {% if not user.is_anonymous %}
-  <li class="dropdown">
-  	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Fitness <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-	  <li><a href="{% url 'fitness:rides' %}">Rides</a></li>
-    <li><a href="{% url 'fitness:log' %}">Log Ride</a></li>
-    </ul>
-  </li>
-  <li class="dropdown">
-  	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Fundraising <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-	  <li><a href="#">Stats</a></li>
-      <li><a href="#">Notifications</a></li>
-    </ul>
-  </li>
-  <li class="dropdown">
-  	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tools <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-	  <li><a href="#">Short Link</a></li>
-    </ul>
-  </li>
-  {% endif %}
-</ul>
-<ul class="nav navbar-nav navbar-right">
-  {% if not user.is_anonymous %}
-  {% if user.is_staff %}
-  <li><a href="{% url 'admin:index' %}">Admin</a><li>
-  {% endif %}
-  <li><a href="{% url 'dashboard:team_stats' %}">Team Stats</a></li>
-  <li><a href="#">My Profile</a></li>
-  <li><a href="{% url 'dashboard:logout' %}">Logout</a></li>
-  {% endif %}
-</ul>
-{% endblock %}
-
 {% block content %}
 <div class="page-header">
   <h1>{{ rider.get_full_name }}'s Dashboard</h1>
