@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if error_message %}
+<div class="alert alert-danger alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <p>{{ error_message }}</p>
+</div>
+<div class="alert alert-success alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <p>{{ error_message }}</p>
+</div>
+{% endif %}
+
+<div class="page-header">
+  <h1>Short Link Settings</h1>
+</div>
+
+<div class="container-fluid">
+ 
+  <div class="row col-md-6 col-md-offset-3">
+	<a href="#" id="warning" class="btn btn-info btn-lg btn-block">I know I can only set my T4K short link once</a>
+  </div>
+
+<form class="form-horizontal" id="set" role="form" method="post" action="{% url 'links:settings' %}" hidden>
+  {% csrf_token %}
+  
+  <div class="row col-md-6 col-md-offset-3">
+  <div class="form-group">
+    <label class="control-label" for="kintera_id">Kintera ID</label>
+    <input class="form-control" name="kintera_id" type="text" placeholder="999999999" required>
+  </div>
+  </div>
+  
+  <div class="row col-md-6 col-md-offset-3">
+  <div class="form-group">
+    <label class="control-label" for="t4k_url">Texas4000.org Profile Link</label>
+    <input class="form-control" name="t4k_url" type="text" placeholder="texas4000.org/rider/2014/sierra/john-smith/" required>
+  </div>
+  </div>
+ 
+  <div class="row col-md-6 col-md-offset-3">
+  <div class="form-group">
+    <label class="control-label" for="short_link">Short Link</label>
+    <input class="form-control" name="short_link" type="text" placeholder="john.smith" required>
+  </div>
+  </div>
+  
+  <div class="row col-md-6 col-md-offset-3">
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary btn-lg btn-block">Set Short Link</button>
+  </div>
+  </div>
+</form>
+</div>
+{% endblock %}
+
+{% block additional_scripts %}
+    <script>
+    var form = $( "#set" );
+	var box = $( "#warning");
+    $( "#warning" ).on( "click", function( event ) {
+	  box.fadeOut();
+	  form.fadeIn();
+    });
+	</script>
+{% endblock %}

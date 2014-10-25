@@ -8,7 +8,7 @@ class Link(models.Model):
 	user = models.ForeignKey('riders.Teammate', verbose_name = "link")
 	kintera_id = models.IntegerField(blank = True)
 	url = models.CharField('short URL', max_length = 50)
-	t4k_url = models.CharField('T4K URL', max_length = 150, blank = True, default = "http://www.texas4000.org")
+	t4k_url = models.CharField('T4K URL', max_length = 150, blank = True, null = True)
 	clicks = models.IntegerField(default = 0)
 	last_click = models.DateTimeField('last clicked', auto_now_add = True)
 
