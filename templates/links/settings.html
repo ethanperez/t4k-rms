@@ -7,9 +7,11 @@
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
   <p>{{ error_message }}</p>
 </div>
+{% endif %}
+{% if success_message %}
 <div class="alert alert-success alert-dismissable">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  <p>{{ error_message }}</p>
+  <p>{{ success_message }}</p>
 </div>
 {% endif %}
 

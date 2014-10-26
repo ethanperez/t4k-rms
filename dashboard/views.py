@@ -9,6 +9,7 @@ import time
 from decimal import Decimal
 from riders.models import Teammate
 from fitness.models import Ride
+from links.models import Link
 
 
 def all_riders(request):
@@ -43,6 +44,9 @@ def dashboard(request, rider=None):
     miles = rides.aggregate(Sum('miles'))
     pace = rides.aggregate(Avg('pace'))
     duration = rides.aggregate(Sum('duration'))
+    
+    # Short Link
+    link = Link.objects.get(user_id__exact = tm)
 
     # Return context
     context = {
@@ -51,6 +55,7 @@ def dashboard(request, rider=None):
         'duration': duration,
         'rides' : rides,
         'rider' : tm,
+        'link' : link,
         'import_date' : date(2014,01,26),
     }
 
