@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
 from riders.models import Teammate
 from links.models import Link
 
@@ -45,6 +46,40 @@ def settings(request):
   # What they see if they've already set their short link
   return render(request, 'links/settings_done.html')
 
-@login_required
-def stats(request):
-  return render(request, 'links/stats.html')
+def kintera_redirect(request, url = None):
+  # Kintera base URL
+  kintera_home = 'http://texas4000.kintera.org/faf/home/default.asp?ievent=1103253'
+  kintera_base = 'http://texas4000.kintera.org/faf/donorReg/donorPledge.asp?ievent=1103253&lis=1&kntae1103253=B2A36C8678314C78A6A853E2413292CD&supId='
+  
+  # Check for short url
+  try:
+    lnk = Link.objects.get(url = url)
+  except ObjectDoesNotExist:
+    # If they don't have a url
+    return redirect(kintera_home)
+  
+  # Else, it's correct!
+  # Update their stats
+  lnk.clicks += 1
+  lnk.lask_click = timezone.now()
+  lnk.save()
+  # Now, redirect!
+  return redirect('%s%d' % (kintera_base, lnk.kintera_id))
+
+def t4k_redirect(request, url = None):
+  t4k_home = 'http://www.texas4000.org'
+  
+  # Check for short url
+  try:
+    lnk = Link.objects.get(url = url)
+  except ObjectDoesNotExist:
+    # If they don't have a url
+    return redirect(t4k_home)
+  
+  # Else, it's correct!
+  # Update their stats
+  lnk.clicks += 1
+  lnk.lask_click = timezone.now()
+  lnk.save()
+  # Now, redirect!
+  return redirect('http://' + lnk.t4k_url)
