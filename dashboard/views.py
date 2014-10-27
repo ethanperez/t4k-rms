@@ -45,9 +45,21 @@ def dashboard(request, rider=None):
     pace = rides.aggregate(Avg('pace'))
     duration = rides.aggregate(Sum('duration'))
     
-    # Short Link
-    link = Link.objects.get(user_id__exact = tm)
-
+    # Short Link - if it's there
+    try:
+      link = Link.objects.get(user_id__exact = tm)
+    except ObjectDoesNotExist:
+      # Return context
+      context = {
+          'miles': miles,
+          'pace': pace,
+          'duration': duration,
+          'rides' : rides,
+          'rider' : tm,
+          'import_date' : date(2014,01,26),
+      }
+      return render(request, 'dashboard/index.html', context)
+      
     # Return context
     context = {
         'miles': miles,
@@ -58,6 +70,7 @@ def dashboard(request, rider=None):
         'link' : link,
         'import_date' : date(2014,01,26),
     }
+
 
     return render(request, 'dashboard/index.html', context)
 
