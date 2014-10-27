@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{# TODO: I don't understand why I have to load it again =/ #}
+{% load datetime_duration %}
+
+{% block content %}
+<div class="rides_header">
+  <h1> {{ rider.get_short_name }}'s Ride Log </h1>
+  <hr />
+</div>
+<div class="row">
+  {% for ride in rides %}
+  <div class="col-sm-6 ride">
+    <h3> {{ ride.date }} </h3>
+    <p> <strong>{{ ride.miles }}</strong> miles at a pace of <strong>{{ ride.pace }} mph</strong>, and it took <strong>{{ ride.duration }} hours </strong>.</p>
+    <p> Rode With: {{ ride.buddies }} </p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

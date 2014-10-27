@@ -3,25 +3,14 @@
 {# TODO: I don't understand why I have to load it again =/ #}
 {% load datetime_duration %}
 
-{% block navbar %}
-<ul class="nav navbar-nav">
-  <li class="active"><a href="{% url 'dashboard:dashboard' %}">Home</a></li>
-  {% if not user.is_anonymous %}
-  <li><a href="{% url 'dashboard:log_ride' %}">Log Ride</a></li>
-  {% endif %}
-</ul>
-<ul class="nav navbar-nav navbar-right">
-  {% if not user.is_anonymous %}
-  {% if user.is_staff %}
-  <li><a href="{% url 'admin:index' %}">Admin</a><li>
-  {% endif %}
-  <li><a href="{% url 'dashboard:change_password' %}">Change Password</a></li>
-  <li><a href="{% url 'dashboard:logout' %}">Logout</a></li>
-  {% endif %}
-</ul>
-{% endblock %}
-
 {% block content %}
+{% if success_message %}
+<div class="alert alert-success alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <p>{{ success_message }}</p>
+</div>
+{% endif %}
+
 <div class="page-header">
   <h1>{{ rider.get_full_name }}'s Dashboard</h1>
 </div>
@@ -41,7 +30,7 @@
     </div>
   </div>
   <div class="col-sm-4">
-    <div class="panel panel-success">
+    <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">Fitness Summary</h3>
       </div>
@@ -52,18 +41,18 @@
       </ul>
     </div>
   </div>
-</div>
-<div class="rides_header">
-  <h1> {{ rider.get_short_name }}'s Ride Log </h1>
-  <hr />
-</div>
-<div class="row">
-  {% for ride in rides %}
-  <div class="col-sm-6 ride">
-    <h3> {{ ride.date }} </h3>
-    <p> <strong>{{ ride.miles }}</strong> miles at a pace of <strong>{{ ride.pace }} mph</strong>, and it took <strong>{{ ride.duration }} hours </strong>.</p>
-    <p> Rode With: {{ ride.buddies }} </p>
+  <div class="col-sm-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Short Link Summary</h3>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">Kintera Link: t4k2105.com/donate/{{ link.url }}</li>
+        <li class="list-group-item">Profile Link: t4k2105.com/rider/{{ link.url }}</li>
+        <li class="list-group-item">Total Clicks: {{ link.clicks }}</li>
+		<li class="list-group-item">Last Click: {{ link.last_click }}</li>
+      </ul>
+    </div>
   </div>
-  {% endfor %}
 </div>
 {% endblock %}

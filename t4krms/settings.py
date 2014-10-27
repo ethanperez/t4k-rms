@@ -44,11 +44,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'south',
     'durationfield',
     'riders',
     'fitness',
     'dashboard',
+    'links',
 )
 
 MIDDLEWARE_CLASSES = (

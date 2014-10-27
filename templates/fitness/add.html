@@ -1,28 +1,10 @@
 {% extends "base.html" %}
 
-{% block navbar %}
-<ul class="nav navbar-nav">
-  <li><a href="{% url 'dashboard:dashboard' %}">Home</a></li>
-  {% if not user.is_anonymous %}
-  <li class="active"><a href="{% url 'dashboard:log_ride' %}">Log Ride</a></li>
-  {% endif %}
-</ul>
-<ul class="nav navbar-nav navbar-right">
-  {% if not user.is_anonymous %}
-  {% if user.is_staff %}
-  <li><a href="{% url 'admin:index' %}">Admin</a><li>
-  {% endif %}
-  <li><a href="{% url 'dashboard:change_password' %}">Change Password</a></li>
-  <li><a href="{% url 'dashboard:logout' %}">Logout</a></li>
-  {% endif %}
-</ul>
-{% endblock %}
-
 {% block content %}
 <div class="page-header">
   <h1>Log a Ride</h1>
 </div>
-<form class="form-horizontal" role="form" method="post" action="{% url 'dashboard:log_ride' %}">
+<form class="form-horizontal" role="form" method="post" action="{% url 'fitness:log' %}">
   {% csrf_token %}
   <div class="form-group">
     <label for="date" class="col-sm-4 control-label">Date ridden</label>

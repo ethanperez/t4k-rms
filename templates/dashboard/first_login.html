@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Texas 4000 Rider Management System | First Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylsheets -->
+    <link rel="stylesheet" href="https://s3.amazonaws.com/t4krms/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="//static.t4k2014.com/signin.css">
+    <link rel="stylesheet" type="text/css" href="//static.t4k2014.com/datepicker3.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+	<style>
+	body {
+	  background-image: url('//static.ethanperez.com/pic5.jpg');
+		background-repeat: no-repeat;
+    background-size: cover;
+	  background-color: #cccccc;
+	}
+  .panel {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  .form-signin input[type="text"] {
+  margin-bottom: 10px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  }
+  .form-signin input[type="email"] {
+  margin-bottom: 10px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  }
+  .form-signin select {
+  margin-bottom: 10px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  }
+	</style>
+  </head>
+  <body>
+    <div class="container">
+      {% if error_message %}
+      <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <p>{{ error_message }}</p>
+      </div>
+      {% endif %}
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 panel panel-default">
+          <form class="form-signin" role="form" method="post" action="{% url 'dashboard:first_login' %}">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">First Time Set-Up</h2>
+            <p class="text-center">Congratulations on your first login to RMS!</p> 
+            <p class="text-center">Before you can get started, make sure all your personal information is correct. You will also need to set your password before you can continue.</p>
+            <legend class="text-center">Set Password</legend>
+              <input type="password" class="form-control" placeholder="Password" name="password1" required autofocus>
+              <input type="password" class="form-control" placeholder="Confirm password" name="password2" required>
+            <legend class="text-center">Personal Information</legend>
+              <input type="email" class="form-control" value="{{ rider.get_email }}" name="email" required>
+              <input type="text" class="form-control" value="{{ rider.first_name }}" name="first_name" required>
+              <input type="text" class="form-control" value="{{ rider.last_name }}" name="last_name" required>
+              <input type="text" class="form-control" placeholder="Date of birth" name="date_of_birth" id="date_of_birth" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required title="YYYY-MM-DD format">
+            <legend class="text-center">Team Information</legend>
+              <input type="text" class="form-control" placeholder="Team title" name="title" required>
+              <select class="form-control" id="route" name="route">
+                <option value="sierra">Sierra</option>
+                <option value="rockies">Rockies</option>
+                <option value="ozarks">Ozarks</option>
+              </select>
+              <button class="btn btn-lg btn-info btn-block" type="submit">Update Information</button>
+          </form>
+        </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//static.t4k2014.com/bootstrap-datepicker.js"></script>
+    <!-- Script for datepicker -->
+    <script>
+      $(document).ready(function () {
+        $('#date_of_birth').datepicker({
+          format: "yyyy-mm-dd",
+          autoclose: true,
+          endDate: '0d',
+        })
+      })
+    </script>
+  </body>
+</html>

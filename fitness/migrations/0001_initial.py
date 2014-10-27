@@ -1,84 +1,35 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+import durationfield.db.models.fields.duration
+from django.conf import settings
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Ride'
-        db.create_table(u'fitness_ride', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['riders.Teammate'])),
-            ('date', self.gf('django.db.models.fields.DateField')()),
-            ('buddies', self.gf('django.db.models.fields.CharField')(max_length=300)),
-            ('miles', self.gf('django.db.models.fields.DecimalField')(max_digits=5, decimal_places=2)),
-            ('pace', self.gf('django.db.models.fields.DecimalField')(max_digits=3, decimal_places=1)),
-            ('duration', self.gf('durationfield.db.models.fields.duration.DurationField')()),
-            ('comments', self.gf('django.db.models.fields.TextField')()),
-            ('time_logged', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, null=True, blank=True)),
-        ))
-        db.send_create_signal(u'fitness', ['Ride'])
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+    ]
 
-
-    def backwards(self, orm):
-        # Deleting model 'Ride'
-        db.delete_table(u'fitness_ride')
-
-
-    models = {
-        u'auth.group': {
-            'Meta': {'object_name': 'Group'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '80'}),
-            'permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'})
-        },
-        u'auth.permission': {
-            'Meta': {'ordering': "(u'content_type__app_label', u'content_type__model', u'codename')", 'unique_together': "((u'content_type', u'codename'),)", 'object_name': 'Permission'},
-            'codename': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        },
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'fitness.ride': {
-            'Meta': {'object_name': 'Ride'},
-            'buddies': ('django.db.models.fields.CharField', [], {'max_length': '300'}),
-            'comments': ('django.db.models.fields.TextField', [], {}),
-            'date': ('django.db.models.fields.DateField', [], {}),
-            'duration': ('durationfield.db.models.fields.duration.DurationField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'miles': ('django.db.models.fields.DecimalField', [], {'max_digits': '5', 'decimal_places': '2'}),
-            'pace': ('django.db.models.fields.DecimalField', [], {'max_digits': '3', 'decimal_places': '1'}),
-            'time_logged': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'null': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['riders.Teammate']"})
-        },
-        u'riders.teammate': {
-            'Meta': {'object_name': 'Teammate'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'date_of_birth': ('django.db.models.fields.DateField', [], {}),
-            'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '100', 'db_index': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Group']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '35'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'route': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'title': ('django.db.models.fields.CharField', [], {'default': "'Rider'", 'max_length': '100'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"})
-        }
-    }
-
-    complete_apps = ['fitness']
+    operations = [
+        migrations.CreateModel(
+            name='Ride',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('date', models.DateField(help_text=b'Date format: YYYY-MM-DD', verbose_name=b'date')),
+                ('buddies', models.CharField(max_length=300, verbose_name=b'ride buddies')),
+                ('miles', models.DecimalField(verbose_name=b'miles ridden', max_digits=5, decimal_places=2)),
+                ('pace', models.DecimalField(verbose_name=b'average pace', max_digits=3, decimal_places=1)),
+                ('duration', durationfield.db.models.fields.duration.DurationField(help_text=b'HH:MM:SS format', verbose_name=b'time to complete ride')),
+                ('comments', models.TextField(verbose_name=b'comments')),
+                ('time_logged', models.DateTimeField(auto_now_add=True, verbose_name=b'date logged', null=True)),
+                ('user', models.ForeignKey(verbose_name=b'teammate', to=settings.AUTH_USER_MODEL)),
+            ],
+            options={
+                'verbose_name': 'ride',
+                'verbose_name_plural': 'rides',
+            },
+            bases=(models.Model,),
+        ),
+    ]

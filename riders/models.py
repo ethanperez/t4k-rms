@@ -60,6 +60,7 @@ class Teammate(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField('active status', default = True,
                                     help_text = 'Designates whether or not the teammate can login')
     date_joined = models.DateTimeField('date added', default = timezone.now)
+    first_login = models.BooleanField('has logged in', default = True)
 
     # Defines the class that manages the teammate
     objects = TeammateManager()

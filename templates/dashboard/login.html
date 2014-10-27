@@ -4,7 +4,7 @@
     <title>Texas 4000 Rider Management System | Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Stylsheets -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://s3.amazonaws.com/t4krms/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="//static.t4k2014.com/signin.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -13,6 +13,18 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+	<style>
+	body {
+	  background-image: url('//static.ethanperez.com/pic1.jpg');
+		background-size: cover;
+		background-repeat: no-repeat;
+	  background-color: #cccccc;
+	}
+
+  .panel {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+	</style>
   </head>
   <body>
     <div class="container">
@@ -22,17 +34,27 @@
         <p>{{ error_message }}</p>
       </div>
       {% endif %}
-      <form class="form-signin" role="form" method="post" action="{% url 'dashboard:login' %}">
-        {% csrf_token %}
-        <h2 class="form-signin-heading">Texas 4000 RMS</h2>
-        <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" name="password" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 panel panel-default">
+          <form class="form-signin" role="form" method="post" action="{% url 'dashboard:login' %}">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">Texas 4000 RMS</h2>
+            <input type="text" class="form-control" placeholder="Email address" name="username" required autofocus>
+            <input type="password" class="form-control" placeholder="Password" name="password" required>
+            <button class="btn btn-lg btn-info btn-block" type="submit">Sign in</button>
+          </form>
+        <div class="row text-center">
+          <a href="#">Forgot Password?</a>
+          <p></p>
+        </div>
+        </div>
+      </div>
     </div>
+    </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   </body>
 </html>

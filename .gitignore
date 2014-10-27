@@ -16,3 +16,6 @@ config.py
 
 # Hide local settings file
 /t4krms/local_settings.py
+
+# Mac files
+*.DS_Store
