@@ -47,20 +47,7 @@ def dashboard(request, rider=None):
     duration = rides.aggregate(Sum('duration'))
     
     # Short Link - if it's there
-    try:
-      link = Link.objects.get(user_id__exact = tm)
-    except ObjectDoesNotExist:
-      # Return context
-      context = {
-          'miles': miles,
-          'pace': pace,
-          'duration': duration,
-          'rides' : rides,
-          'rider' : tm,
-          'import_date' : date(2014,01,26),
-      }
-      return render(request, 'dashboard/index.html', context)
-      
+    link = Link.objects.get(user_id__exact = tm)      
     # Return context
     context = {
         'miles': miles,
