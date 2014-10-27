@@ -47,7 +47,22 @@ def dashboard(request, rider=None):
     duration = rides.aggregate(Sum('duration'))
     
     # Short Link - if it's there
-    link = Link.objects.get(user_id__exact = tm)      
+    try:
+      link = Link.objects.get(user_id__exact = tm)
+    except ObjectDoesNotExist:
+      # Return context
+      context = {
+          'miles': miles,
+          'pace': pace,
+          'duration': duration,
+          'rides' : rides,
+          'rider' : tm,
+          'import_date' : date(2014,01,26),
+      }
+
+
+      return render(request, 'dashboard/index.html', context) 
+    
     # Return context
     context = {
         'miles': miles,
@@ -61,6 +76,7 @@ def dashboard(request, rider=None):
 
 
     return render(request, 'dashboard/index.html', context)
+    
 
 def enter_gate(request):
     # Only execute login logic if data is posted
