@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Sum, Avg
+from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime, date
 import time
 from decimal import Decimal
