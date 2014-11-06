@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'fitness',
     'dashboard',
     'links',
+    'adminlinks',
 )
 
 MIDDLEWARE_CLASSES = (
