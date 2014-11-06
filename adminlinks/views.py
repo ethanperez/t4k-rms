@@ -18,7 +18,7 @@ def goto(request, dalink):
   
   # It is a valid link; follow it
   lnk.clicks += 1
-  lnk.lask_click = timezone.now()
+  lnk.last_click = timezone.now()
   lnk.save()
   # redirect
   return redirect(lnk.url)
