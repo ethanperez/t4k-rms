@@ -82,4 +82,4 @@ def t4k_redirect(request, url = None):
   lnk.lask_click = timezone.now()
   lnk.save()
   # Now, redirect!
-  return redirect('http://' + lnk.t4k_url)
+  return redirect('%s' % lnk.t4k_url)
