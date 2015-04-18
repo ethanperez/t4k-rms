@@ -9,4 +9,5 @@ urlpatterns = patterns('',
     url(r'^fitness/', include('fitness.urls', namespace = "fitness")),
     url(r'^tools/', include('links.urls', namespace = "links")),
     url(r'^adminlinks/', include('adminlinks.urls', namespace = "adminlinks")),
+    url(r'^api/', include('api.urls', namespace = "api"))
 )
