@@ -1,6 +1,6 @@
 from api.decorators import logged_in_or_basicauth
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
+from django.db.models import Sum, Avg
 from django.http import JsonResponse
 from riders.models import Teammate
 from fitness.models import Ride
@@ -11,6 +11,7 @@ import time, json
 def account(request):
   if request.method == 'GET':
     mate = Teammate.objects.filter(pk = request.user.pk)
+    rides = Ride.objects.filter(user_id = request.user.pk)
 
     data = {
             'email': request.user.email,
@@ -18,7 +19,10 @@ def account(request):
             'last_name': request.user.last_name,
             'route': request.user.route,
             'dob': request.user.date_of_birth,
-            'title': request.user.title
+            'title': request.user.title,
+            'miles': rides.aggregate(Sum('miles')),
+            'pace': rides.aggregate(Avg('pace')),
+            'duration': rides.aggregate(Sum('duration'))
             }
     wrapper = {'account': data}
     return JsonResponse(wrapper)
