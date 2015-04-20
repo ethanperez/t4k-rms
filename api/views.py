@@ -4,7 +4,7 @@ from django.db.models import Sum, Avg
 from django.http import JsonResponse
 from riders.models import Teammate
 from fitness.models import Ride
-from dashboard.templatetags.datetime_duration import timedelta, timedelta_delta
+from dashboard.templatetags.datetime_duration import timedelta
 from decimal import Decimal
 import time, json
 
