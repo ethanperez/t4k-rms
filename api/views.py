@@ -4,6 +4,7 @@ from django.db.models import Sum, Avg
 from django.http import JsonResponse
 from riders.models import Teammate
 from fitness.models import Ride
+from dashboard.templatetags.datetime_duration import timedelta, timedelta_delta
 from decimal import Decimal
 import time, json
 
@@ -13,6 +14,13 @@ def account(request):
     mate = Teammate.objects.filter(pk = request.user.pk)
     rides = Ride.objects.filter(user_id = request.user.pk)
 
+    # Ride data
+    rideData = {
+                'totalMiles': rides.aggregate(Sum('miles'))['miles__sum'],
+                'averagePace': '{0:.3g}'.format(rides.aggregate(Avg('pace'))['pace__avg']),
+                'totalRideTime': timedelta(rides.aggregate(Sum('duration'))['duration__sum'])
+    }
+
     data = {
             'email': request.user.email,
             'first_name': request.user.first_name,
@@ -20,9 +28,7 @@ def account(request):
             'route': request.user.route,
             'dob': request.user.date_of_birth,
             'title': request.user.title,
-            'miles': rides.aggregate(Sum('miles')),
-            'pace': rides.aggregate(Avg('pace')),
-            'duration': rides.aggregate(Sum('duration'))
+            'rideData': rideData
             }
     wrapper = {'account': data}
     return JsonResponse(wrapper)
