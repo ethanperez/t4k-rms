@@ -17,7 +17,7 @@ def account(request):
     # Ride data
     rideData = {
                 'totalMiles': rides.aggregate(Sum('miles'))['miles__sum'],
-                'averagePace': '{0:.3g}'.format(rides.aggregate(Avg('pace'))['pace__avg']),
+                'averagePace': '{0:.3}'.format(rides.aggregate(Avg('pace'))['pace__avg']),
                 'totalRideTime': timedelta(rides.aggregate(Sum('duration'))['duration__sum'])
     }
 
