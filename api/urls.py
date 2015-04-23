@@ -3,5 +3,6 @@ from api import views
 
 urlpatterns = patterns('api.views',
     url(r'^account/$', views.account, name = 'account'),
-    url(r'^rides/$', views.rides, name = 'rides')
+    url(r'^rides/$', views.rides, name = 'rides'),
+    url(r'^test/$', views.test, name = 'test')
 )

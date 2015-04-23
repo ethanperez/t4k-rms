@@ -85,3 +85,6 @@ def rides(request):
          return JsonResponse({'status': '410', 'message': 'Could not save the record'})
 
     return JsonResponse({'status': '200', 'data': data})
+
+def test(request):
+  return JsonResponse({"code": "911", "message": "This is a test"})
